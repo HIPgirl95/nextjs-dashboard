@@ -16,8 +16,8 @@ export async function fetchRevenue() {
     // Artificially delay a response for demo purposes.
     // Don't do this in production :)
 
-    // console.log('Fetching revenue data...');
-    // await new Promise((resolve) => setTimeout(resolve, 3000));
+    console.log("Fetching revenue data...");
+    await new Promise((resolve) => setTimeout(resolve, 3000));
 
     const data = await sql<Revenue[]>`SELECT * FROM revenue`;
 
@@ -38,6 +38,9 @@ export async function fetchLatestInvoices() {
       JOIN customers ON invoices.customer_id = customers.id
       ORDER BY invoices.date DESC
       LIMIT 5`;
+
+    console.log("Fetching latest invoices...");
+    await new Promise((resolve) => setTimeout(resolve, 2000));
 
     const latestInvoices = data.map((invoice) => ({
       ...invoice,
@@ -72,6 +75,9 @@ export async function fetchCardData() {
     const numberOfCustomers = Number(data[1][0].count ?? "0");
     const totalPaidInvoices = formatCurrency(data[2][0].paid ?? "0");
     const totalPendingInvoices = formatCurrency(data[2][0].pending ?? "0");
+
+    console.log("Fetching card data...");
+    await new Promise((resolve) => setTimeout(resolve, 4000));
 
     return {
       numberOfCustomers,
